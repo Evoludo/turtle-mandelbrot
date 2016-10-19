@@ -26,4 +26,6 @@ Fiddling with these is left as an exercise to the interested ;).
 
 ## Credits
 
-The compiled DSL interpreter (everything contained in the Assignment3) was written by [Simon Fowler](http://simonjf.com), and is *NOT* covered by the GPL!
+The Mandelbrot generator (`mandelbrot.tg`) was written by [Andrew Bell](https://evoludo.com), and is distributed under the GPLv3 license (included).
+The compiled DSL interpreter (everything contained in the `Assignment3` directory) was written by [Simon Fowler](https://simonjf.com), and is *NOT* covered by the GPL!
+A blog post about this project is available [here](https://evoludo.com/posts/mandelbrot).
