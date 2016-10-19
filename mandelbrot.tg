@@ -1,0 +1,74 @@
+let fp_scale = 1000 in
+let x_min = (0 - 2) * fp_scale in
+let x_max = 1 * fp_scale  in
+let y_min = (0 - 1) * fp_scale  in
+let y_max = 1 * fp_scale  in
+
+let width = 640 in
+let height = 480 in
+
+let dx = (x_max - x_min) / width in
+let dy = (y_max - y_min) / height in 
+
+let z_a = ref 0 in
+let z_a_new = ref 0 in
+let z_b = ref 0 in
+let z_mag_sq = ref 0 in
+let c_x = ref x_min in
+let c_y = ref y_min in
+
+let max_iter = 50 in
+let max_r_sq = 9 * fp_scale in
+
+penUp;
+right 180;
+forward (height / 2);
+right 90;
+forward (width / 2);
+left 180;
+
+let x = ref 0 in
+let y = ref 0 in
+let i = ref 0 in
+
+while (!y < height + 1) {
+    x := 0;
+    c_x := x_min;
+    while (!x < width) {
+        z_a := !c_x;
+        z_b := !c_y;
+        z_mag_sq := 0;
+        i := 0;
+        while (!i < max_iter) {
+            (if (!z_mag_sq > max_r_sq) then
+                (if !z_mag_sq > (2 * max_r_sq) then
+                    (if !z_mag_sq > (4 * max_r_sq) then
+                        setCol Pink
+                    else
+                        setCol Blue)
+                else
+                    setCol Red)
+            else
+                setCol Green;
+                z_a_new := (((!z_a * !z_a) / fp_scale) - ((!z_b * !z_b) / fp_scale) + !c_x);
+                z_b := ((2 * (!z_a * !z_b) / fp_scale) + !c_y);
+                z_a := !z_a_new;
+                z_mag_sq := (((!z_a * !z_a) / fp_scale) + ((!z_b * !z_b) / fp_scale)));
+            i := (!i + 1)
+        };
+        penDown;
+        forward 0;
+        penUp;
+        forward 1;
+        c_x := (!c_x + dx);
+        x := (!x + 1)
+    };
+
+    left 90;
+    forward 1;
+    left 90;
+    forward width;
+    right 180;
+    c_y := (!c_y + dy);
+    y := (!y + 1)
+}
